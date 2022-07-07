@@ -47,6 +47,8 @@ EthernetInterface net;
 LCD_16X2_DISPLAY disp;
 DigitalOut lcdBacklight(LCD_BKL_PIN);
 AnalogIn pot(AN_POT_PIN);
+AnalogIn ldr(AN_LDR_PIN);
+EnvSensor env;
 
 int main()
 {
@@ -97,6 +99,10 @@ int main()
         //Construct web page
     
         float p = pot;  //Get pot value
+        float temp = env.getTemperature();
+        float pres = env.getPressure();
+        float lite = ldr.read();
+        printf("Temperature = %5.1f\tPressure = %7.2f\tLight = %4.2f\n", temp, pres, lite);
 
         char buff[6];
         sprintf(buff, "%5.3f", p);  //Convert float to string
